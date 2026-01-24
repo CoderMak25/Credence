@@ -4,6 +4,7 @@ import Header from './components/Header';
 import StatsCards from './components/StatsCards';
 import DemoControls from './components/DemoControls';
 import StudentsHub from './components/StudentsHub';
+import AnalyticsPage from './components/AnalyticsPage';
 import { getStudentRiskData } from './services/api';
 import { calculateRisk } from './utils/riskCalculator';
 
@@ -72,6 +73,8 @@ export default function App() {
             } else {
                 setStudentsFilter('all');
             }
+        } else if (view === 'analytics') {
+            setActiveView('analytics');
         }
     };
 
@@ -162,7 +165,7 @@ export default function App() {
                 <Header activeView={activeView} studentsFilter={studentsFilter} />
 
                 <div className="flex-1 overflow-y-auto custom-scroll p-8">
-                    {activeView === 'dashboard' ? (
+                    {activeView === 'dashboard' && (
                         <>
                             {/* Dashboard View */}
                             <StatsCards summary={summary} onNavigate={handleNavigate} />
@@ -217,8 +220,9 @@ export default function App() {
                                 </div>
                             </div>
                         </>
-                    ) : (
-                        /* Students View */
+                    )}
+
+                    {activeView === 'students' && (
                         <StudentsHub
                             students={students}
                             selectedStudent={selectedStudent}
@@ -230,6 +234,10 @@ export default function App() {
                             searchTerm={searchTerm}
                             onSearchChange={setSearchTerm}
                         />
+                    )}
+
+                    {activeView === 'analytics' && (
+                        <AnalyticsPage students={students} demoActive={demoActive} onNavigate={handleNavigate} />
                     )}
                 </div>
             </main>
