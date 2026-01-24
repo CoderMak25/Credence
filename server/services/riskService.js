@@ -11,6 +11,7 @@ const FIELD_WEIGHTS = {
     lateSubmissionsCount: 20
 };
 
+// Base confidence penalties for completely missing fields
 const CONFIDENCE_PENALTIES = {
     attendanceRate: 20,
     assignmentCompletionRate: 25,
@@ -20,17 +21,45 @@ const CONFIDENCE_PENALTIES = {
 };
 
 /**
+ * Calculate confidence adjustment based on data availability
+ * @param {Object} dataAvailability - Metadata about available data
+ * @returns {number} Confidence adjustment (negative value)
+ */
+function calculateDataAvailabilityPenalty(dataAvailability) {
+    if (!dataAvailability) return 0;
+
+    let penalty = 0;
+    const totalWeeks = dataAvailability.totalWeeks || 4;
+
+    // Attendance: Partial penalty if not all weeks available
+    if (dataAvailability.attendanceWeeks < totalWeeks) {
+        const missingRatio = 1 - (dataAvailability.attendanceWeeks / totalWeeks);
+        penalty += CONFIDENCE_PENALTIES.attendanceRate * missingRatio * 0.5;
+    }
+
+    // Quiz: Penalty if only 1 quiz (less reliable average)
+    if (dataAvailability.hasQuizzes && dataAvailability.quizWeeks === 1) {
+        penalty += 10; // Single quiz = less confident about average
+    }
+
+    // No penalty for assignments not given (that's not missing data)
+    // Only penalize if assignments were given but we have incomplete info
+
+    return penalty;
+}
+
+/**
  * Calculate risk score and confidence for a student
- * @param {Object} student - Student document
+ * @param {Object} student - Student document with aggregated monthly values
+ * @param {Object} dataAvailability - Optional data availability metadata from aggregation
  * @returns {Object} Risk assessment result
  */
-function calculateRisk(student) {
+function calculateRisk(student, dataAvailability = null) {
     const missingFields = [];
     const factors = [];
     let riskScore = 0;
     let confidence = 100;
     let availableWeight = 0;
-    let totalWeight = 0;
 
     // Check data staleness (>14 days old)
     const daysSinceUpdate = Math.floor((Date.now() - new Date(student.lastUpdated)) / (1000 * 60 * 60 * 24));
@@ -43,6 +72,11 @@ function calculateRisk(student) {
             description: `Data is ${daysSinceUpdate} days old`,
             value: `${daysSinceUpdate} days`
         });
+    }
+
+    // Apply data availability penalty (from weekly aggregation)
+    if (dataAvailability) {
+        confidence -= calculateDataAvailabilityPenalty(dataAvailability);
     }
 
     // Attendance Rate
@@ -83,8 +117,20 @@ function calculateRisk(student) {
             average: '88%'
         });
     } else {
-        missingFields.push('assignmentCompletionRate');
-        confidence -= CONFIDENCE_PENALTIES.assignmentCompletionRate;
+        // Only penalize if assignments were actually given
+        if (dataAvailability && dataAvailability.hasAssignments === false) {
+            // No assignments given - don't penalize confidence
+            factors.push({
+                field: 'assignmentCompletionRate',
+                label: 'Assignment Submission',
+                impact: 'none',
+                description: 'No assignments given this period',
+                value: 'N/A'
+            });
+        } else {
+            missingFields.push('assignmentCompletionRate');
+            confidence -= CONFIDENCE_PENALTIES.assignmentCompletionRate;
+        }
     }
 
     // Quiz Average
@@ -104,8 +150,19 @@ function calculateRisk(student) {
             trend: student.quizAverage < 70 ? '-12%' : '+5%'
         });
     } else {
-        missingFields.push('quizAverage');
-        confidence -= CONFIDENCE_PENALTIES.quizAverage;
+        // Only penalize if quizzes were actually conducted
+        if (dataAvailability && dataAvailability.hasQuizzes === false) {
+            factors.push({
+                field: 'quizAverage',
+                label: 'Quiz Performance',
+                impact: 'none',
+                description: 'No quizzes conducted this period',
+                value: 'N/A'
+            });
+        } else {
+            missingFields.push('quizAverage');
+            confidence -= CONFIDENCE_PENALTIES.quizAverage;
+        }
     }
 
     // LMS Logins Per Week
@@ -122,7 +179,7 @@ function calculateRisk(student) {
             impact,
             description: student.lmsLoginsPerWeek < 3 ? 'Very low platform engagement' :
                 student.lmsLoginsPerWeek < 5 ? 'Below average platform usage' : 'Active on learning platform',
-            value: `${student.lmsLoginsPerWeek} logins/week`
+            value: `${Math.round(student.lmsLoginsPerWeek)} logins/week`
         });
     } else {
         missingFields.push('lmsLoginsPerWeek');
