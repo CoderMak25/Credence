@@ -21,3 +21,14 @@ export async function getStudentById(studentId) {
     }
     return response.json();
 }
+
+/**
+ * Fetch aggregated analytics data
+ */
+export async function getAnalyticsData() {
+    const response = await fetch(`${API_BASE}/students/analytics`);
+    if (!response.ok) {
+        throw new Error('Failed to fetch analytics data');
+    }
+    return response.json();
+}

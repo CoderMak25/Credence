@@ -17,7 +17,7 @@ export default function Sidebar({ activeView, onNavigate }) {
     const navItems = [
         { id: 'dashboard', icon: 'solar:widget-linear', label: 'Dashboard' },
         { id: 'students', icon: 'solar:users-group-rounded-linear', label: 'Students' },
-        { id: 'analytics', icon: 'solar:chart-2-linear', label: 'Analytics', disabled: true }
+        { id: 'analytics', icon: 'solar:chart-2-linear', label: 'Analytics' }
     ];
 
     return (
@@ -35,10 +35,10 @@ export default function Sidebar({ activeView, onNavigate }) {
                         onClick={() => !item.disabled && onNavigate(item.id)}
                         disabled={item.disabled}
                         className={`group flex items-center justify-center w-full aspect-square rounded-lg relative transition-colors ${activeView === item.id || (item.id === 'students' && activeView.startsWith('students'))
-                                ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                                : item.disabled
-                                    ? 'text-gray-300 dark:text-slate-700 cursor-not-allowed'
-                                    : 'text-gray-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800'
+                            ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
+                            : item.disabled
+                                ? 'text-gray-300 dark:text-slate-700 cursor-not-allowed'
+                                : 'text-gray-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-gray-50 dark:hover:bg-slate-800'
                             }`}
                     >
                         <iconify-icon icon={item.icon} width="24" stroke-width="1.5"></iconify-icon>

@@ -10,6 +10,13 @@ export default function Header({ activeView, studentsFilter }) {
             };
         }
 
+        if (activeView === 'analytics') {
+            return {
+                title: 'Analytics',
+                subtitle: 'Institution-level insights for informed decision-making'
+            };
+        }
+
         const filterLabels = {
             'all': { title: 'All Students', subtitle: 'Browse and search all enrolled students' },
             'high-risk': { title: 'High Risk Students', subtitle: 'Students with multiple concerning academic signals' },
