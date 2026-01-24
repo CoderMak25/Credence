@@ -23,8 +23,8 @@ export default function Sidebar({ activeView, onNavigate }) {
     return (
         <nav className="w-20 border-r border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col items-center py-6 h-full flex-shrink-0 z-20 transition-colors duration-300">
             {/* Logo */}
-            <div className="mb-10 w-12 h-12 flex items-center justify-center">
-                <img src="/credence-logo.png" alt="Credence Logo" className="w-full h-full object-contain" />
+            <div className="mb-10 text-xl font-semibold tracking-tighter text-blue-600 dark:text-blue-500 border-2 border-blue-600 dark:border-blue-500 rounded w-10 h-10 flex items-center justify-center">
+                CR
             </div>
 
             {/* Nav Items */}

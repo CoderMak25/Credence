@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const { seedData } = require('./data/seed');
-require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
 
 const studentRoutes = require('./routes/studentRoutes');
 

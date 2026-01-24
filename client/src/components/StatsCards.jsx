@@ -70,7 +70,7 @@ export default function StatsCards({ summary, onNavigate }) {
                 <button
                     key={card.id}
                     onClick={() => onNavigate('students', card.id)}
-                    className={`relative overflow-hidden bg-white dark:bg-slate-900 p-5 rounded-xl border border-gray-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-32 transition-all cursor-pointer text-left group ${card.hoverBorder || ''} ${card.hasBorderLeft ? 'border-l-4 border-l-purple-500' : ''} hover:shadow-md hover:-translate-y-0.5`}
+                    className={`bg-white dark:bg-slate-900 p-5 rounded-xl border border-gray-200 dark:border-slate-800 shadow-sm flex flex-col justify-between h-32 transition-all cursor-pointer text-left group ${card.hoverBorder || ''} ${card.hasBorderLeft ? 'border-l-4 border-l-purple-500' : ''} hover:shadow-md hover:-translate-y-0.5`}
                 >
                     {/* Gradient decoration */}
                     {card.hasGradient && (

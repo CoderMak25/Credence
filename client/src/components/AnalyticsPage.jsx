@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import {
     PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip,
-    ResponsiveContainer
+    ResponsiveContainer, LabelList
 } from 'recharts';
 
 /**
@@ -160,18 +160,24 @@ export default function AnalyticsPage({ students, demoActive, onNavigate }) {
         D: '#ef4444'
     };
 
-    // Prepare pie chart data
+    // Prepare pie chart data - sorted by count for layered effect (smallest to largest)
     const riskPieData = [
         { name: 'High Risk', value: institutionalHealth.riskDistribution.high.count, color: RISK_COLORS.high },
         { name: 'Medium Risk', value: institutionalHealth.riskDistribution.medium.count, color: RISK_COLORS.medium },
         { name: 'Low Risk', value: institutionalHealth.riskDistribution.low.count, color: RISK_COLORS.low }
-    ];
+    ].sort((a, b) => a.value - b.value);
+
+    // Pie chart sizing configuration
+    const PIE_BASE_RADIUS = 45;
+    const PIE_SIZE_INCREMENT = 12;
+    const pieTotalValue = riskPieData.reduce((sum, d) => sum + d.value, 0);
 
     // Confidence grade data for bar chart
     const confidenceBarData = Object.entries(confidenceAnalytics.gradeDistribution).map(([grade, data]) => ({
         grade: `Grade ${grade}`,
         count: data.count,
-        fill: CONFIDENCE_COLORS[grade]
+        fill: CONFIDENCE_COLORS[grade],
+        dataKey: grade
     }));
 
     // Missing data frequency
@@ -229,23 +235,10 @@ export default function AnalyticsPage({ students, demoActive, onNavigate }) {
                         </div>
                     </div>
 
-                    {/* Center: Donut chart */}
+                    {/* Center: Layered Concentric Ring Chart */}
                     <div className="flex flex-col items-center justify-center">
-                        <ResponsiveContainer width="100%" height={180}>
+                        <ResponsiveContainer width="100%" height={200}>
                             <PieChart>
-                                <Pie
-                                    data={riskPieData}
-                                    cx="50%"
-                                    cy="50%"
-                                    innerRadius={50}
-                                    outerRadius={75}
-                                    paddingAngle={2}
-                                    dataKey="value"
-                                >
-                                    {riskPieData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={entry.color} />
-                                    ))}
-                                </Pie>
                                 <Tooltip
                                     contentStyle={{
                                         backgroundColor: 'rgba(15, 23, 42, 0.9)',
@@ -254,6 +247,41 @@ export default function AnalyticsPage({ students, demoActive, onNavigate }) {
                                         color: '#fff'
                                     }}
                                 />
+                                {riskPieData.map((entry, index) => {
+                                    const cumulativeBefore = riskPieData
+                                        .slice(0, index)
+                                        .reduce((sum, d) => sum + d.value, 0);
+                                    const cumulativeAfter = cumulativeBefore + entry.value;
+                                    const startAngle = (cumulativeBefore / pieTotalValue) * 360;
+                                    const endAngle = (cumulativeAfter / pieTotalValue) * 360;
+
+                                    return (
+                                        <Pie
+                                            key={`pie-${index}`}
+                                            data={[entry]}
+                                            cx="50%"
+                                            cy="50%"
+                                            innerRadius={30}
+                                            outerRadius={PIE_BASE_RADIUS + index * PIE_SIZE_INCREMENT}
+                                            dataKey="value"
+                                            nameKey="name"
+                                            cornerRadius={4}
+                                            startAngle={startAngle}
+                                            endAngle={endAngle}
+                                        >
+                                            <Cell fill={entry.color} />
+                                            <LabelList
+                                                dataKey="value"
+                                                position="inside"
+                                                style={{
+                                                    fill: '#fff',
+                                                    fontSize: 11,
+                                                    fontWeight: 600
+                                                }}
+                                            />
+                                        </Pie>
+                                    );
+                                })}
                             </PieChart>
                         </ResponsiveContainer>
                         <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">Risk Distribution</p>
@@ -305,78 +333,172 @@ export default function AnalyticsPage({ students, demoActive, onNavigate }) {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Risk by Department */}
+                    {/* Risk by Department - Glowing Stacked Bars */}
                     <div>
                         <h3 className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-4">By Department</h3>
-                        <div className="space-y-3">
-                            {riskByDepartment.map(dept => (
-                                <div key={dept.name} className="space-y-1">
-                                    <div className="flex justify-between text-sm">
-                                        <span className="text-slate-700 dark:text-slate-300">{dept.name}</span>
-                                        <span className="text-slate-500">
-                                            {dept.highRiskPct > 50 ? (
-                                                <span className="text-amber-600 dark:text-amber-400">Higher concentration</span>
-                                            ) : (
-                                                `${dept.highRisk} high-risk`
-                                            )}
-                                        </span>
-                                    </div>
-                                    <div className="h-2 bg-gray-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
-                                        <div
-                                            className="h-full bg-red-500"
-                                            style={{ width: `${(dept.highRisk / dept.total) * 100}%` }}
-                                        />
-                                        <div
-                                            className="h-full bg-amber-500"
-                                            style={{ width: `${(dept.mediumRisk / dept.total) * 100}%` }}
-                                        />
-                                        <div
-                                            className="h-full bg-emerald-500"
-                                            style={{ width: `${(dept.lowRisk / dept.total) * 100}%` }}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        <ResponsiveContainer width="100%" height={riskByDepartment.length * 50 + 20}>
+                            <BarChart
+                                data={riskByDepartment}
+                                layout="vertical"
+                                margin={{ left: 0, right: 30 }}
+                                barGap={0}
+                            >
+                                <defs>
+                                    <filter id="glow-high" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feGaussianBlur stdDeviation="4" result="blur" />
+                                        <feFlood floodColor="#ef4444" floodOpacity="0.5" />
+                                        <feComposite in2="blur" operator="in" />
+                                        <feMerge>
+                                            <feMergeNode />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                    <filter id="glow-medium" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feGaussianBlur stdDeviation="4" result="blur" />
+                                        <feFlood floodColor="#f59e0b" floodOpacity="0.5" />
+                                        <feComposite in2="blur" operator="in" />
+                                        <feMerge>
+                                            <feMergeNode />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                    <filter id="glow-low" x="-50%" y="-50%" width="200%" height="200%">
+                                        <feGaussianBlur stdDeviation="4" result="blur" />
+                                        <feFlood floodColor="#10b981" floodOpacity="0.5" />
+                                        <feComposite in2="blur" operator="in" />
+                                        <feMerge>
+                                            <feMergeNode />
+                                            <feMergeNode in="SourceGraphic" />
+                                        </feMerge>
+                                    </filter>
+                                </defs>
+                                <XAxis type="number" hide domain={[0, 'dataMax']} />
+                                <YAxis
+                                    type="category"
+                                    dataKey="name"
+                                    width={120}
+                                    tick={{ fontSize: 12, fill: '#94a3b8' }}
+                                    axisLine={false}
+                                    tickLine={false}
+                                />
+                                <Tooltip
+                                    contentStyle={{
+                                        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        color: '#fff',
+                                        fontSize: '12px'
+                                    }}
+                                    formatter={(value, name) => [value, name === 'highRisk' ? 'High Risk' : name === 'mediumRisk' ? 'Medium Risk' : 'Low Risk']}
+                                    cursor={{ fill: 'rgba(148, 163, 184, 0.1)' }}
+                                />
+                                <Bar
+                                    dataKey="highRisk"
+                                    stackId="risk"
+                                    fill="#ef4444"
+                                    barSize={12}
+                                    radius={[4, 0, 0, 4]}
+                                    style={{ filter: 'url(#glow-high)' }}
+                                />
+                                <Bar
+                                    dataKey="mediumRisk"
+                                    stackId="risk"
+                                    fill="#f59e0b"
+                                    barSize={12}
+                                    style={{ filter: 'url(#glow-medium)' }}
+                                />
+                                <Bar
+                                    dataKey="lowRisk"
+                                    stackId="risk"
+                                    fill="#10b981"
+                                    barSize={12}
+                                    radius={[0, 4, 4, 0]}
+                                    style={{ filter: 'url(#glow-low)' }}
+                                >
+                                    <LabelList
+                                        dataKey="total"
+                                        position="right"
+                                        style={{ fill: '#94a3b8', fontSize: 11, fontWeight: 500 }}
+                                        offset={8}
+                                    />
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
                     </div>
 
-                    {/* Risk by Year */}
+                    {/* Risk by Year - Glowing Stacked Bars */}
                     <div>
                         <h3 className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-4">By Year</h3>
-                        <div className="space-y-3">
-                            {riskByYear.map(year => (
-                                <div key={year.name} className="space-y-1">
-                                    <div className="flex justify-between text-sm">
-                                        <span className="text-slate-700 dark:text-slate-300">{year.name}</span>
-                                        <span className="text-slate-500">{year.total} students</span>
-                                    </div>
-                                    <div className="h-2 bg-gray-100 dark:bg-slate-800 rounded-full overflow-hidden flex">
-                                        <div
-                                            className="h-full bg-red-500"
-                                            style={{ width: `${(year.highRisk / year.total) * 100}%` }}
-                                        />
-                                        <div
-                                            className="h-full bg-amber-500"
-                                            style={{ width: `${(year.mediumRisk / year.total) * 100}%` }}
-                                        />
-                                        <div
-                                            className="h-full bg-emerald-500"
-                                            style={{ width: `${(year.lowRisk / year.total) * 100}%` }}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        <ResponsiveContainer width="100%" height={riskByYear.length * 50 + 20}>
+                            <BarChart
+                                data={riskByYear}
+                                layout="vertical"
+                                margin={{ left: 0, right: 30 }}
+                                barGap={0}
+                            >
+                                <XAxis type="number" hide domain={[0, 'dataMax']} />
+                                <YAxis
+                                    type="category"
+                                    dataKey="name"
+                                    width={60}
+                                    tick={{ fontSize: 12, fill: '#94a3b8' }}
+                                    axisLine={false}
+                                    tickLine={false}
+                                />
+                                <Tooltip
+                                    contentStyle={{
+                                        backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        color: '#fff',
+                                        fontSize: '12px'
+                                    }}
+                                    formatter={(value, name) => [value, name === 'highRisk' ? 'High Risk' : name === 'mediumRisk' ? 'Medium Risk' : 'Low Risk']}
+                                    cursor={{ fill: 'rgba(148, 163, 184, 0.1)' }}
+                                />
+                                <Bar
+                                    dataKey="highRisk"
+                                    stackId="risk"
+                                    fill="#ef4444"
+                                    barSize={12}
+                                    radius={[4, 0, 0, 4]}
+                                    style={{ filter: 'url(#glow-high)' }}
+                                />
+                                <Bar
+                                    dataKey="mediumRisk"
+                                    stackId="risk"
+                                    fill="#f59e0b"
+                                    barSize={12}
+                                    style={{ filter: 'url(#glow-medium)' }}
+                                />
+                                <Bar
+                                    dataKey="lowRisk"
+                                    stackId="risk"
+                                    fill="#10b981"
+                                    barSize={12}
+                                    radius={[0, 4, 4, 0]}
+                                    style={{ filter: 'url(#glow-low)' }}
+                                >
+                                    <LabelList
+                                        dataKey="total"
+                                        position="right"
+                                        style={{ fill: '#94a3b8', fontSize: 11, fontWeight: 500 }}
+                                        offset={8}
+                                        formatter={(value) => `${value} students`}
+                                    />
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
                         {/* Legend */}
-                        <div className="flex gap-4 mt-4 text-xs text-slate-500">
-                            <span className="flex items-center gap-1">
-                                <div className="w-2 h-2 rounded-full bg-red-500" /> High
+                        <div className="flex gap-6 mt-4 text-xs text-slate-500">
+                            <span className="flex items-center gap-2">
+                                <div className="w-3 h-3 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]" /> High
                             </span>
-                            <span className="flex items-center gap-1">
-                                <div className="w-2 h-2 rounded-full bg-amber-500" /> Medium
+                            <span className="flex items-center gap-2">
+                                <div className="w-3 h-3 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.6)]" /> Medium
                             </span>
-                            <span className="flex items-center gap-1">
-                                <div className="w-2 h-2 rounded-full bg-emerald-500" /> Low
+                            <span className="flex items-center gap-2">
+                                <div className="w-3 h-3 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]" /> Low
                             </span>
                         </div>
                     </div>
@@ -394,13 +516,33 @@ export default function AnalyticsPage({ students, demoActive, onNavigate }) {
                 </p>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Confidence Grade Distribution */}
+                    {/* Confidence Grade Distribution - Glowing Bars */}
                     <div>
                         <h3 className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-4">Confidence Grade Distribution</h3>
                         <ResponsiveContainer width="100%" height={200}>
-                            <BarChart data={confidenceBarData} layout="vertical">
+                            <BarChart data={confidenceBarData} layout="vertical" margin={{ left: -10 }}>
+                                <defs>
+                                    {Object.entries(CONFIDENCE_COLORS).map(([grade, color]) => (
+                                        <filter key={`glow-${grade}`} id={`glow-${grade}`} x="-100%" y="-100%" width="400%" height="400%">
+                                            <feGaussianBlur stdDeviation="6" result="blur" />
+                                            <feFlood floodColor={color} floodOpacity="0.4" />
+                                            <feComposite in2="blur" operator="in" />
+                                            <feMerge>
+                                                <feMergeNode />
+                                                <feMergeNode in="SourceGraphic" />
+                                            </feMerge>
+                                        </filter>
+                                    ))}
+                                </defs>
                                 <XAxis type="number" hide />
-                                <YAxis type="category" dataKey="grade" width={70} tick={{ fontSize: 12, fill: '#94a3b8' }} />
+                                <YAxis
+                                    type="category"
+                                    dataKey="grade"
+                                    width={75}
+                                    tick={{ fontSize: 12, fill: '#94a3b8' }}
+                                    axisLine={false}
+                                    tickLine={false}
+                                />
                                 <Tooltip
                                     contentStyle={{
                                         backgroundColor: 'rgba(15, 23, 42, 0.9)',
@@ -409,8 +551,37 @@ export default function AnalyticsPage({ students, demoActive, onNavigate }) {
                                         color: '#fff'
                                     }}
                                     formatter={(value) => [`${value} students`, 'Count']}
+                                    cursor={{ fill: 'rgba(148, 163, 184, 0.1)' }}
                                 />
-                                <Bar dataKey="count" radius={[0, 4, 4, 0]} />
+                                <Bar
+                                    dataKey="count"
+                                    radius={[0, 6, 6, 0]}
+                                    barSize={14}
+                                    background={{ fill: 'rgba(148, 163, 184, 0.1)', radius: 6 }}
+                                    shape={(props) => {
+                                        const { x, y, width, height, fill, payload } = props;
+                                        const gradeKey = payload.dataKey;
+                                        return (
+                                            <rect
+                                                x={x}
+                                                y={y}
+                                                width={width}
+                                                height={height}
+                                                rx={6}
+                                                fill={fill}
+                                                filter={`url(#glow-${gradeKey})`}
+                                                style={{ transition: 'all 0.3s ease' }}
+                                            />
+                                        );
+                                    }}
+                                >
+                                    <LabelList
+                                        dataKey="count"
+                                        position="right"
+                                        style={{ fill: '#94a3b8', fontSize: 11, fontWeight: 500 }}
+                                        offset={8}
+                                    />
+                                </Bar>
                             </BarChart>
                         </ResponsiveContainer>
                         <div className="mt-3 p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
