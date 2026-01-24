@@ -1,11 +1,9 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import StatsCards from './components/StatsCards';
 import DemoControls from './components/DemoControls';
-import FilterBar from './components/FilterBar';
-import StudentList from './components/StudentList';
-import StudentDetail from './components/StudentDetail';
+import StudentsHub from './components/StudentsHub';
 import { getStudentRiskData } from './services/api';
 import { calculateRisk } from './utils/riskCalculator';
 
@@ -24,6 +22,10 @@ export default function App() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [demoActive, setDemoActive] = useState(false);
+
+    // Navigation state
+    const [activeView, setActiveView] = useState('dashboard'); // 'dashboard' | 'students'
+    const [studentsFilter, setStudentsFilter] = useState('all'); // 'all' | 'high-risk' | 'intervention' | 'low-confidence'
 
     // Fetch data on mount
     useEffect(() => {
@@ -52,8 +54,25 @@ export default function App() {
             totalStudents: studentList.length,
             highRiskStudents: studentList.filter(s => s.riskLevel === 'high').length,
             lowConfidenceCount: studentList.filter(s => s.confidence < 60).length,
-            needsIntervention: studentList.filter(s => s.riskLevel === 'high' && s.confidence >= 50).length
+            needsIntervention: studentList.filter(s =>
+                (s.riskLevel === 'high' && s.confidence >= 50) ||
+                (s.riskLevel === 'medium' && s.confidence >= 60)
+            ).length
         };
+    };
+
+    // Navigation handler
+    const handleNavigate = (view, filter) => {
+        if (view === 'dashboard') {
+            setActiveView('dashboard');
+        } else if (view === 'students') {
+            setActiveView('students');
+            if (filter) {
+                setStudentsFilter(filter);
+            } else {
+                setStudentsFilter('all');
+            }
+        }
     };
 
     // Demo mode handlers
@@ -112,29 +131,6 @@ export default function App() {
         }
     };
 
-    // Filter and sort students
-    const filteredStudents = useMemo(() => {
-        let result = [...students];
-
-        // Search filter
-        if (searchTerm) {
-            const term = searchTerm.toLowerCase();
-            result = result.filter(s =>
-                s.name.toLowerCase().includes(term) ||
-                s.studentId.toLowerCase().includes(term)
-            );
-        }
-
-        // Sort
-        if (sortBy === 'risk') {
-            result.sort((a, b) => b.riskScore - a.riskScore);
-        } else {
-            result.sort((a, b) => a.confidence - b.confidence);
-        }
-
-        return result;
-    }, [students, searchTerm, sortBy]);
-
     if (loading) {
         return (
             <div className="h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-950">
@@ -160,39 +156,81 @@ export default function App() {
 
     return (
         <div className="bg-gray-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 h-screen overflow-hidden flex selection:bg-blue-100 selection:text-blue-900 transition-colors duration-300">
-            <Sidebar />
+            <Sidebar activeView={activeView} onNavigate={handleNavigate} />
 
             <main className="flex-1 flex flex-col h-full overflow-hidden bg-gray-50 dark:bg-slate-950 transition-colors duration-300">
-                <Header />
+                <Header activeView={activeView} studentsFilter={studentsFilter} />
 
                 <div className="flex-1 overflow-y-auto custom-scroll p-8">
-                    <StatsCards summary={summary} />
+                    {activeView === 'dashboard' ? (
+                        <>
+                            {/* Dashboard View */}
+                            <StatsCards summary={summary} onNavigate={handleNavigate} />
 
-                    <div className="flex flex-col gap-6 mb-6">
-                        <DemoControls
-                            onRemoveAttendance={handleRemoveAttendance}
-                            onRemoveQuiz={handleRemoveQuiz}
-                            onRemoveOptional={handleRemoveOptional}
-                            onReset={handleReset}
-                            demoActive={demoActive}
-                        />
+                            <div className="mb-6">
+                                <DemoControls
+                                    onRemoveAttendance={handleRemoveAttendance}
+                                    onRemoveQuiz={handleRemoveQuiz}
+                                    onRemoveOptional={handleRemoveOptional}
+                                    onReset={handleReset}
+                                    demoActive={demoActive}
+                                />
+                            </div>
 
-                        <FilterBar
+                            {/* Quick preview of high-risk students */}
+                            <div className="bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 p-6">
+                                <div className="flex justify-between items-center mb-4">
+                                    <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+                                        Students Requiring Attention
+                                    </h2>
+                                    <button
+                                        onClick={() => handleNavigate('students', 'high-risk')}
+                                        className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+                                    >
+                                        View all
+                                        <iconify-icon icon="solar:arrow-right-linear" width="14"></iconify-icon>
+                                    </button>
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    {students
+                                        .filter(s => s.riskLevel === 'high')
+                                        .slice(0, 6)
+                                        .map(student => (
+                                            <div
+                                                key={student.studentId}
+                                                onClick={() => {
+                                                    setSelectedStudent(student);
+                                                    handleNavigate('students', 'high-risk');
+                                                }}
+                                                className="p-4 rounded-lg border border-red-100 dark:border-red-900/30 bg-red-50/50 dark:bg-red-900/10 hover:bg-red-50 dark:hover:bg-red-900/20 cursor-pointer transition-colors"
+                                            >
+                                                <div className="flex justify-between items-start mb-2">
+                                                    <span className="font-medium text-slate-900 dark:text-white">{student.name}</span>
+                                                    <span className="text-xs font-bold text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30 px-2 py-0.5 rounded">
+                                                        {student.riskScore}
+                                                    </span>
+                                                </div>
+                                                <p className="text-xs text-slate-500 dark:text-slate-400">{student.studentId} • {student.department}</p>
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </div>
+                        </>
+                    ) : (
+                        /* Students View */
+                        <StudentsHub
+                            students={students}
+                            selectedStudent={selectedStudent}
+                            onSelectStudent={setSelectedStudent}
+                            activeFilter={studentsFilter}
+                            onFilterChange={setStudentsFilter}
                             sortBy={sortBy}
                             onSortChange={setSortBy}
                             searchTerm={searchTerm}
                             onSearchChange={setSearchTerm}
                         />
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[700px]">
-                        <StudentList
-                            students={filteredStudents}
-                            selectedStudent={selectedStudent}
-                            onSelectStudent={setSelectedStudent}
-                        />
-                        <StudentDetail student={selectedStudent} />
-                    </div>
+                    )}
                 </div>
             </main>
         </div>
