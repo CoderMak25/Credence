@@ -112,7 +112,7 @@ export default function App() {
     const handleRemoveOptional = () => {
         setDemoActive(true);
         const modified = students.map(s => {
-            const newStudent = { ...s, lmsLoginsPerWeek: null, lateSubmissionsCount: null };
+            const newStudent = { ...s, lmsLoginsPerWeek: null, assignmentCompletionRate: null, lateSubmissionsCount: null };
             const risk = calculateRisk(newStudent);
             return { ...newStudent, ...risk };
         });
@@ -158,13 +158,16 @@ export default function App() {
     }
 
     return (
-        <div className="bg-gray-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 h-screen overflow-hidden flex selection:bg-blue-100 selection:text-blue-900 transition-colors duration-300">
-            <Sidebar activeView={activeView} onNavigate={handleNavigate} />
+        <div className="bg-gray-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 h-screen overflow-hidden flex flex-col sm:flex-row selection:bg-blue-100 selection:text-blue-900 transition-colors duration-300">
+            {/* Desktop Sidebar - hidden on mobile */}
+            <div className="hidden sm:block">
+                <Sidebar activeView={activeView} onNavigate={handleNavigate} />
+            </div>
 
             <main className="flex-1 flex flex-col h-full overflow-hidden bg-gray-50 dark:bg-slate-950 transition-colors duration-300">
                 <Header activeView={activeView} studentsFilter={studentsFilter} />
 
-                <div className="flex-1 overflow-y-auto custom-scroll p-8">
+                <div className="flex-1 overflow-y-auto custom-scroll p-4 sm:p-6 lg:p-8 pb-20 sm:pb-4">
                     {activeView === 'dashboard' && (
                         <>
                             {/* Dashboard View */}
@@ -241,6 +244,31 @@ export default function App() {
                     )}
                 </div>
             </main>
+
+            {/* Mobile Bottom Navigation - visible only on mobile */}
+            <nav className="sm:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 px-4 py-2 flex justify-around items-center z-50">
+                <button
+                    onClick={() => handleNavigate('dashboard')}
+                    className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${activeView === 'dashboard' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500'}`}
+                >
+                    <iconify-icon icon="solar:widget-linear" width="22"></iconify-icon>
+                    <span className="text-[10px] font-medium">Dashboard</span>
+                </button>
+                <button
+                    onClick={() => handleNavigate('students')}
+                    className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${activeView === 'students' || activeView.startsWith('students') ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500'}`}
+                >
+                    <iconify-icon icon="solar:users-group-rounded-linear" width="22"></iconify-icon>
+                    <span className="text-[10px] font-medium">Students</span>
+                </button>
+                <button
+                    onClick={() => handleNavigate('analytics')}
+                    className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${activeView === 'analytics' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-400 dark:text-slate-500'}`}
+                >
+                    <iconify-icon icon="solar:chart-2-linear" width="22"></iconify-icon>
+                    <span className="text-[10px] font-medium">Analytics</span>
+                </button>
+            </nav>
         </div>
     );
 }

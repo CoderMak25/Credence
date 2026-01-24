@@ -5,8 +5,8 @@ export default function Header({ activeView, studentsFilter }) {
     const getTitle = () => {
         if (activeView === 'dashboard') {
             return {
-                title: 'Academic Risk Advisor',
-                subtitle: 'Confidence-aware student risk assessment for informed intervention'
+                title: 'CREDENCE',
+                subtitle: 'ACADEMIC RISK ADVISOR'
             };
         }
 
@@ -28,19 +28,30 @@ export default function Header({ activeView, studentsFilter }) {
     };
 
     const { title, subtitle } = getTitle();
+    const isDashboard = activeView === 'dashboard';
 
     return (
         <header className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 px-8 py-5 flex justify-between items-center shrink-0 transition-colors duration-300">
             <div>
                 <div className="flex items-center gap-3">
-                    <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">{title}</h1>
+                    {isDashboard ? (
+                        <h1 className="text-2xl font-black tracking-wide text-slate-900 dark:text-white" style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
+                            {title}
+                        </h1>
+                    ) : (
+                        <h1 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">{title}</h1>
+                    )}
                     {activeView === 'students' && (
                         <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded">
                             Students
                         </span>
                     )}
                 </div>
-                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{subtitle}</p>
+                {isDashboard ? (
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 tracking-widest font-medium">{subtitle}</p>
+                ) : (
+                    <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{subtitle}</p>
+                )}
             </div>
             <div className="flex items-center gap-3">
                 <button className="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors relative">
