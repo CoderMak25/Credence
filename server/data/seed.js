@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const path = require('path');
+const fs = require('fs');
 require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 const Student = require('../models/Student');
-const studentsData = require('./students.json');
+
+// Read fresh data from JSON file (not cached like require())
+const studentsData = JSON.parse(fs.readFileSync(path.join(__dirname, 'students.json'), 'utf8'));
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
