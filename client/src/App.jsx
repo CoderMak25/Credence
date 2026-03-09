@@ -76,7 +76,6 @@ export default function App() {
         } else if (view === 'analytics') {
             setActiveView('analytics');
         }
-        }
     };
 
     // Demo mode handlers
