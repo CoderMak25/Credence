@@ -3,13 +3,13 @@ import ConfidenceTooltip from './ConfidenceTooltip';
 import StudentProfile from './StudentProfile';
 import ContactModal from './ContactModal';
 
-export default function StudentDetail({ student }) {
+export default function StudentDetail({ student, isMobile }) {
     const [showProfile, setShowProfile] = useState(false);
     const [showContact, setShowContact] = useState(false);
 
     if (!student) {
         return (
-            <div className="lg:col-span-8 flex flex-col h-full bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 shadow-sm items-center justify-center transition-colors">
+            <div className={`${isMobile ? 'w-full' : 'lg:col-span-8'} flex flex-col h-full bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 shadow-sm items-center justify-center transition-colors`}>
                 <iconify-icon icon="solar:user-rounded-linear" class="text-slate-300 dark:text-slate-700" width="64"></iconify-icon>
                 <p className="text-slate-400 dark:text-slate-500 mt-4">Select a student to view details</p>
             </div>
@@ -39,45 +39,45 @@ export default function StudentDetail({ student }) {
 
     return (
         <>
-            <div className="lg:col-span-8 flex flex-col h-full bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 shadow-sm overflow-y-auto custom-scroll transition-colors">
+            <div className={`${isMobile ? 'w-full' : 'lg:col-span-8'} flex flex-col h-full bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-800 shadow-sm overflow-y-auto custom-scroll transition-colors`}>
                 {/* Profile Header */}
-                <div className="p-6 border-b border-gray-100 dark:border-slate-800 flex justify-between items-start">
+                <div className="p-4 sm:p-6 border-b border-gray-100 dark:border-slate-800 flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
                     <div>
-                        <div className="flex items-center gap-3 mb-1">
-                            <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">{student.name}</h2>
+                        <div className="flex items-center gap-2 sm:gap-3 mb-1 flex-wrap">
+                            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">{student.name}</h2>
                             {student.riskLevel === 'high' && (
                                 <span className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-100 dark:border-red-900/30 text-xs px-2 py-1 rounded font-medium">At Risk</span>
                             )}
                         </div>
-                        <p className="text-sm text-slate-500 dark:text-slate-400 font-mono">ID: {student.studentId} • {student.department} Year {student.year}</p>
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-mono">ID: {student.studentId} • {student.department} Year {student.year}</p>
                     </div>
                     <div className="flex gap-2">
                         <button
                             onClick={() => setShowProfile(true)}
-                            className="px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
+                            className="flex-1 sm:flex-none px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
                         >
                             View Profile
                         </button>
                         <button
                             onClick={() => setShowContact(true)}
-                            className="px-3 py-2 text-xs font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-200 dark:shadow-none transition-colors"
+                            className="flex-1 sm:flex-none px-3 py-2 text-xs font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 shadow-sm shadow-blue-200 dark:shadow-none transition-colors"
                         >
                             Contact Student
                         </button>
                     </div>
                 </div>
 
-                <div className="p-6 space-y-8">
+                <div className="p-4 sm:p-6 space-y-6 sm:space-y-8">
 
                     {/* Recommendation Alert */}
                     {student.riskLevel === 'high' && (
-                        <div className="bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-xl p-4 flex gap-4">
-                            <div className="bg-white dark:bg-slate-900 p-2 rounded-full border border-red-100 dark:border-red-900/30 h-fit text-red-500">
+                        <div className="bg-red-50 dark:bg-red-900/10 border border-red-100 dark:border-red-900/30 rounded-xl p-3 sm:p-4 flex gap-3 sm:gap-4">
+                            <div className="bg-white dark:bg-slate-900 p-2 rounded-full border border-red-100 dark:border-red-900/30 h-fit text-red-500 hidden sm:block">
                                 <iconify-icon icon="solar:bell-bing-bold" width="20"></iconify-icon>
                             </div>
                             <div>
-                                <h4 className="text-sm font-semibold text-red-900 dark:text-red-200 mb-1">Immediate Intervention Recommended</h4>
-                                <p className="text-sm text-red-700 dark:text-red-300/80 leading-relaxed">
+                                <h4 className="text-xs sm:text-sm font-semibold text-red-900 dark:text-red-200 mb-1">Immediate Intervention Recommended</h4>
+                                <p className="text-xs sm:text-sm text-red-700 dark:text-red-300/80 leading-relaxed">
                                     {student.recommendation}
                                 </p>
                             </div>
@@ -86,12 +86,12 @@ export default function StudentDetail({ student }) {
 
                     {/* Data Quality Warning Section */}
                     {student.dataQuality !== 'excellent' && (
-                        <div className="bg-amber-50/50 dark:bg-amber-900/10 border border-dashed border-amber-200 dark:border-amber-800/50 rounded-xl p-4">
+                        <div className="bg-amber-50/50 dark:bg-amber-900/10 border border-dashed border-amber-200 dark:border-amber-800/50 rounded-xl p-3 sm:p-4">
                             <div className="flex items-center gap-2 mb-2">
                                 <iconify-icon icon="solar:shield-warning-linear" class="text-amber-500"></iconify-icon>
-                                <h4 className="text-sm font-semibold text-amber-800 dark:text-amber-200">Data Quality Warning: {student.dataQuality.charAt(0).toUpperCase() + student.dataQuality.slice(1)}</h4>
+                                <h4 className="text-xs sm:text-sm font-semibold text-amber-800 dark:text-amber-200">Data Quality Warning: {student.dataQuality.charAt(0).toUpperCase() + student.dataQuality.slice(1)}</h4>
                             </div>
-                            <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4 sm:items-center sm:justify-between">
                                 <p className="text-xs text-amber-700 dark:text-amber-400/80 max-w-md">
                                     Prediction confidence is reduced due to missing {student.missingFields?.join(', ') || 'data'}. The risk score may be {student.riskLevel === 'high' ? 'inflated' : 'affected'}.
                                 </p>
@@ -107,14 +107,14 @@ export default function StudentDetail({ student }) {
 
                     {/* Confidence Vis */}
                     <div>
-                        <div className="flex justify-between items-end mb-2">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-1 sm:gap-0 mb-2">
                             <div className="flex items-center gap-2">
-                                <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">Model Confidence Assessment</h3>
+                                <h3 className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">Model Confidence Assessment</h3>
                                 <ConfidenceTooltip missingFields={student.missingFields} dataQuality={student.dataQuality} />
                             </div>
-                            <span className="text-sm font-medium text-blue-600 dark:text-blue-400">{student.confidence}% Certainty</span>
+                            <span className="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400">{student.confidence}% Certainty</span>
                         </div>
-                        <div className="h-6 bg-slate-100 dark:bg-slate-800 rounded-md overflow-hidden relative w-full">
+                        <div className="h-5 sm:h-6 bg-slate-100 dark:bg-slate-800 rounded-md overflow-hidden relative w-full">
                             {/* Background lines */}
                             <div className="absolute inset-0 flex justify-between px-2">
                                 <div className="w-px h-full bg-white/50 dark:bg-slate-700/50"></div>
@@ -129,7 +129,7 @@ export default function StudentDetail({ student }) {
                                 <div className="absolute inset-y-0 right-0 w-1 bg-white/30"></div>
                             </div>
                         </div>
-                        <div className="flex justify-between mt-1 text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-medium">
+                        <div className="flex justify-between mt-1 text-[9px] sm:text-[10px] text-slate-400 dark:text-slate-500 uppercase tracking-wider font-medium">
                             <span>Guesswork</span>
                             <span>Informed</span>
                             <span>High Certainty</span>
@@ -138,21 +138,21 @@ export default function StudentDetail({ student }) {
 
                     {/* Risk Factors Grid */}
                     <div>
-                        <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200 mb-4">Contributing Risk Factors</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <h3 className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200 mb-3 sm:mb-4">Contributing Risk Factors</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                             {student.factors?.slice(0, 4).map((factor, index) => (
-                                <div key={index} className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                                <div key={index} className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-3 sm:p-4 border border-slate-100 dark:border-slate-800 relative overflow-hidden">
                                     {factor.impact === 'none' && (
                                         <div className="absolute -right-4 -bottom-4 opacity-5 dark:opacity-10">
                                             <iconify-icon icon="solar:graph-up-bold" width="80"></iconify-icon>
                                         </div>
                                     )}
-                                    <div className="flex justify-between items-start mb-2">
-                                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{factor.label}</span>
+                                    <div className="flex justify-between items-start mb-2 gap-2">
+                                        <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-300">{factor.label}</span>
                                         {getImpactBadge(factor.impact)}
                                     </div>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-3">{factor.description}</p>
-                                    <div className="bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-700 px-2 py-1.5 font-mono text-xs text-slate-800 dark:text-slate-200">
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-2 sm:mb-3">{factor.description}</p>
+                                    <div className="bg-white dark:bg-slate-900 rounded border border-slate-200 dark:border-slate-700 px-2 py-1.5 font-mono text-[10px] sm:text-xs text-slate-800 dark:text-slate-200">
                                         Value: <span className={
                                             factor.impact === 'high' ? 'text-red-600 dark:text-red-400' :
                                                 factor.impact === 'medium' ? 'text-amber-600 dark:text-amber-400' :
@@ -172,11 +172,11 @@ export default function StudentDetail({ student }) {
                 </div>
 
                 {/* Analytics Preview */}
-                <div className="p-6 bg-gray-50 dark:bg-slate-950/50 border-t border-gray-200 dark:border-slate-800 transition-colors mt-auto">
-                    <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-4 flex items-center gap-2">
+                <div className="p-4 sm:p-6 bg-gray-50 dark:bg-slate-950/50 border-t border-gray-200 dark:border-slate-800 transition-colors mt-auto">
+                    <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3 sm:mb-4 flex items-center gap-2">
                         <iconify-icon icon="solar:chart-square-linear"></iconify-icon> System Analytics Snapshot
                     </h3>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
                         {/* Mini Chart 1 */}
                         <div className="bg-white dark:bg-slate-900 p-3 rounded-lg border border-gray-200 dark:border-slate-800 shadow-sm">
                             <h4 className="text-[10px] text-slate-500 dark:text-slate-400 font-medium mb-2">Confidence Calibration</h4>

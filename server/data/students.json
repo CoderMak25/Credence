@@ -3358,5 +3358,965 @@
         "lmsLogins": 8
       }
     ]
+  },
+  {
+    "studentId": "STU71",
+    "name": "Rahul Menon",
+    "branch": "Computer Engineering",
+    "semester": 4,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 74,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 70,
+        "lateSubmissions": 1,
+        "lmsLogins": 7
+      }
+    ]
+  },
+  {
+    "studentId": "STU72",
+    "name": "Pooja Deshmukh",
+    "branch": "IT",
+    "semester": 5,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 71,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 75,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      }
+    ]
+  },
+  {
+    "studentId": "STU73",
+    "name": "Vivek Chauhan",
+    "branch": "Mechanical",
+    "semester": 3,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 75,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 75,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      }
+    ]
+  },
+  {
+    "studentId": "STU74",
+    "name": "Shruti Pillai",
+    "branch": "Civil",
+    "semester": 6,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 75,
+        "lateSubmissions": 1,
+        "lmsLogins": 7
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 75,
+        "lateSubmissions": 1,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 1,
+        "lmsLogins": 5
+      }
+    ]
+  },
+  {
+    "studentId": "STU75",
+    "name": "Akash Bhandari",
+    "branch": "Electronics",
+    "semester": 7,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 1,
+        "lmsLogins": 6
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 71,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 71,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      }
+    ]
+  },
+  {
+    "studentId": "STU76",
+    "name": "Nisha Agarwal",
+    "branch": "Computer Engineering",
+    "semester": 2,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 0,
+        "assignmentsSubmitted": 0,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 1,
+        "lmsLogins": 7
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 71,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 70,
+        "lateSubmissions": 1,
+        "lmsLogins": 6
+      }
+    ]
+  },
+  {
+    "studentId": "STU77",
+    "name": "Deepak Srinivasan",
+    "branch": "IT",
+    "semester": 8,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 75,
+        "lateSubmissions": 1,
+        "lmsLogins": 7
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 74,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      }
+    ]
+  },
+  {
+    "studentId": "STU78",
+    "name": "Kavya Nambiar",
+    "branch": "Mechanical",
+    "semester": 4,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 73,
+        "lateSubmissions": 1,
+        "lmsLogins": 5
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 73,
+        "lateSubmissions": 1,
+        "lmsLogins": 6
+      }
+    ]
+  },
+  {
+    "studentId": "STU79",
+    "name": "Suresh Pandey",
+    "branch": "Civil",
+    "semester": 1,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 0,
+        "assignmentsSubmitted": 0,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 1,
+        "lmsLogins": 6
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 70,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 73,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      }
+    ]
+  },
+  {
+    "studentId": "STU80",
+    "name": "Anjali Bhatt",
+    "branch": "Electronics",
+    "semester": 5,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 70,
+        "lateSubmissions": 1,
+        "lmsLogins": 5
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 1,
+        "lmsLogins": 6
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 73,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 1,
+        "lmsLogins": 6
+      }
+    ]
+  },
+  {
+    "studentId": "STU81",
+    "name": "Rohit Thakur",
+    "branch": "Computer Engineering",
+    "semester": 6,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 1,
+        "lmsLogins": 6
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 70,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 70,
+        "lateSubmissions": 1,
+        "lmsLogins": 7
+      }
+    ]
+  },
+  {
+    "studentId": "STU82",
+    "name": "Megha Kulkarni",
+    "branch": "IT",
+    "semester": 3,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 70,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 75,
+        "lateSubmissions": 1,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      }
+    ]
+  },
+  {
+    "studentId": "STU83",
+    "name": "Nitin Goel",
+    "branch": "Mechanical",
+    "semester": 7,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 73,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": true,
+        "quizScore": 74,
+        "lateSubmissions": 1,
+        "lmsLogins": 7
+      }
+    ]
+  },
+  {
+    "studentId": "STU84",
+    "name": "Swati Rajan",
+    "branch": "Civil",
+    "semester": 2,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 0,
+        "assignmentsSubmitted": 0,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 73,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 70,
+        "lateSubmissions": 1,
+        "lmsLogins": 6
+      }
+    ]
+  },
+  {
+    "studentId": "STU85",
+    "name": "Gaurav Shetty",
+    "branch": "Electronics",
+    "semester": 4,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 70,
+        "lateSubmissions": 1,
+        "lmsLogins": 6
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 75,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      }
+    ]
+  },
+  {
+    "studentId": "STU86",
+    "name": "Preeti Bansal",
+    "branch": "Computer Engineering",
+    "semester": 8,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 70,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 74,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      }
+    ]
+  },
+  {
+    "studentId": "STU87",
+    "name": "Ashwin Menon",
+    "branch": "IT",
+    "semester": 6,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 73,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 71,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      }
+    ]
+  },
+  {
+    "studentId": "STU88",
+    "name": "Divya Sharma",
+    "branch": "Mechanical",
+    "semester": 5,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 71,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 71,
+        "lateSubmissions": 0,
+        "lmsLogins": 6
+      }
+    ]
+  },
+  {
+    "studentId": "STU89",
+    "name": "Varun Kapoor",
+    "branch": "Civil",
+    "semester": 4,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 85,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 75,
+        "lateSubmissions": 1,
+        "lmsLogins": 5
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 1,
+        "lmsLogins": 5
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 71,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 7
+      }
+    ]
+  },
+  {
+    "studentId": "STU90",
+    "name": "Ritu Chawla",
+    "branch": "Electronics",
+    "semester": 3,
+    "weeklyData": [
+      {
+        "week": 1,
+        "attendancePercentage": 87,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 2,
+        "attendancePercentage": 89,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 73,
+        "lateSubmissions": 1,
+        "lmsLogins": 7
+      },
+      {
+        "week": 3,
+        "attendancePercentage": 86,
+        "assignmentsGiven": 2,
+        "assignmentsSubmitted": 2,
+        "quizConducted": false,
+        "quizScore": null,
+        "lateSubmissions": 0,
+        "lmsLogins": 5
+      },
+      {
+        "week": 4,
+        "attendancePercentage": 88,
+        "assignmentsGiven": 1,
+        "assignmentsSubmitted": 1,
+        "quizConducted": true,
+        "quizScore": 73,
+        "lateSubmissions": 1,
+        "lmsLogins": 6
+      }
+    ]
   }
 ]
